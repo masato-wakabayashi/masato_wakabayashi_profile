@@ -144,7 +144,7 @@ export const CyberTheme: React.FC = () => {
             <div className="bg-slate-900/80 backdrop-blur border border-cyan-500/30 p-6 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.1)] group hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] transition-all">
                 <div className="w-32 h-32 mx-auto rounded-full border-2 border-cyan-400 p-1 mb-4 relative">
                     <div className="absolute inset-0 rounded-full border border-cyan-400 animate-ping opacity-20"></div>
-                    <img src="../public/photo/profile-image.png" alt="Avatar" className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                    <img src="/photo/profile-image.png" alt="Avatar" className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <h1 className="text-2xl font-bold text-white text-center tracking-tighter">{PROFILE.englishName}</h1>
                 
