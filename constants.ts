@@ -44,7 +44,7 @@ export const CAREER_HISTORY: CareerItem[] = [
         role: "PL",
         size: "大規模",
         stack: ["要件定義", "PMO"],
-        summary: "基幹システム統合に向けた要件定義・ベンダーコントロール（コーディングレス）。",
+        summary: "基幹システム統合に向けた要件定義・ベンダーコントロール。",
         achievements: []
       },
       {
@@ -52,7 +52,7 @@ export const CAREER_HISTORY: CareerItem[] = [
         role: "PL",
         size: "中規模",
         stack: ["要件定義", "Security"],
-        summary: "個人情報管理プロセスのシステム化における要件定義（コーディングレス）。",
+        summary: "個人情報管理プロセスのシステム化における要件定義。",
         achievements: []
       },
       {
