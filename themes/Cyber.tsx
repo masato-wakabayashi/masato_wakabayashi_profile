@@ -1,10 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PROFILE, CAREER_HISTORY, SKILLS, CERTIFICATIONS } from '../constants';
 import { Cpu, Shield, Globe, Code, Zap, MessageSquare, Activity, Radio, Briefcase, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
 export const CyberTheme: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'stack' | 'projects' | 'cloudworks'>('stack');
+  
+  // Custom Cursor Refs
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorVisualRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
+    };
+
+    const onMouseDown = () => {
+      if (cursorVisualRef.current) {
+        cursorVisualRef.current.classList.add('scale-75');
+        cursorVisualRef.current.classList.remove('scale-100');
+      }
+    };
+
+    const onMouseUp = () => {
+      if (cursorVisualRef.current) {
+        cursorVisualRef.current.classList.remove('scale-75');
+        cursorVisualRef.current.classList.add('scale-100');
+      }
+    };
+
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Basic check for interactive elements
+      const isInteractive = 
+        target.tagName === 'BUTTON' || 
+        target.tagName === 'A' || 
+        target.closest('button') || 
+        target.closest('a') ||
+        target.closest('[role="button"]') ||
+        target.classList.contains('clickable');
+
+      if (cursorVisualRef.current) {
+        if (isInteractive) {
+          cursorVisualRef.current.classList.add('w-12', 'h-12', 'bg-cyan-500/10', 'border-cyan-400');
+          cursorVisualRef.current.classList.remove('w-8', 'h-8', 'border-cyan-500/30');
+          // Add spin effect for extra tech feel
+          cursorVisualRef.current.classList.add('rotate-45');
+        } else {
+          cursorVisualRef.current.classList.remove('w-12', 'h-12', 'bg-cyan-500/10', 'border-cyan-400', 'rotate-45');
+          cursorVisualRef.current.classList.add('w-8', 'h-8', 'border-cyan-500/30');
+        }
+      }
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mouseover', onMouseOver);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mouseover', onMouseOver);
+    };
+  }, []);
 
   // Transform skills for Radar Chart
   const radarData = [
@@ -39,8 +101,33 @@ export const CyberTheme: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-cyan-400 font-mono selection:bg-cyan-900 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-cyan-400 font-mono selection:bg-cyan-900 selection:text-white overflow-x-hidden cursor-none">
       
+      {/* Global Style to force cursor none in this theme */}
+      <style>{`
+        *, *::before, *::after { cursor: none !important; }
+      `}</style>
+
+      {/* Custom Cursor System */}
+      <div 
+        ref={cursorRef} 
+        className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+        style={{ willChange: 'transform' }}
+      >
+        {/* Center Target Dot */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_cyan,0_0_20px_cyan]" />
+        
+        {/* Outer Targeting Ring */}
+        <div 
+            ref={cursorVisualRef}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 border border-cyan-500/30 rounded-full transition-all duration-300 ease-out flex items-center justify-center backdrop-blur-[1px]"
+        >
+            {/* Crosshair Lines */}
+            <div className="absolute w-[1px] h-full bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent top-0 left-1/2 -translate-x-1/2" />
+            <div className="absolute h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent top-1/2 left-0 -translate-y-1/2" />
+        </div>
+      </div>
+
       {/* Background Grid */}
       <div className="fixed inset-0 z-0 pointer-events-none" 
            style={{
@@ -54,13 +141,22 @@ export const CyberTheme: React.FC = () => {
         
         {/* Left Column: Identity */}
         <div className="lg:col-span-3 space-y-6">
-            <div className="bg-slate-900/80 backdrop-blur border border-cyan-500/30 p-6 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+            <div className="bg-slate-900/80 backdrop-blur border border-cyan-500/30 p-6 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.1)] group hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] transition-all">
                 <div className="w-32 h-32 mx-auto rounded-full border-2 border-cyan-400 p-1 mb-4 relative">
                     <div className="absolute inset-0 rounded-full border border-cyan-400 animate-ping opacity-20"></div>
                     <img src="https://picsum.photos/400/400?grayscale" alt="Avatar" className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <h1 className="text-2xl font-bold text-white text-center tracking-tighter">{PROFILE.englishName}</h1>
-                <p className="text-cyan-600 text-center text-xs mb-4">ID: MW-2025-DEV</p>
+                
+                <a 
+                    href="https://crowdworks.jp/public/employees/5739345?ref=share_url_wkprofile"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block text-cyan-600 text-center text-xs mb-4 hover:text-cyan-400 hover:underline transition-all clickable"
+                >
+                    ID: m.waka
+                </a>
+
                 <div className="flex justify-center gap-2 mb-6">
                     <span className="px-2 py-1 bg-cyan-950 text-cyan-300 text-xs border border-cyan-800 rounded">LEAD</span>
                     <span className="px-2 py-1 bg-cyan-950 text-cyan-300 text-xs border border-cyan-800 rounded">JAVA</span>
@@ -90,29 +186,29 @@ export const CyberTheme: React.FC = () => {
             
             {/* Top Bar Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg">
+                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">EXP. YEARS</div>
                     <div className="text-2xl font-bold text-white">10<span className="text-cyan-500 text-sm">.0</span></div>
                 </div>
-                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg">
+                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">PROJECTS</div>
                     <div className="text-2xl font-bold text-white">12<span className="text-cyan-500 text-sm">+</span></div>
                 </div>
-                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg">
+                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">MAX TEAM</div>
                     <div className="text-2xl font-bold text-white">10<span className="text-cyan-500 text-sm">ppl</span></div>
                 </div>
-                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg">
+                <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">STATUS</div>
                     <div className="text-2xl font-bold text-green-400 animate-pulse text-base mt-1">ONLINE</div>
                 </div>
             </div>
 
             {/* Main Interface */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden min-h-[600px] flex flex-col shadow-2xl">
+            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden min-h-[600px] flex flex-col shadow-2xl relative">
                 
                 {/* Enhanced Tab Bar */}
-                <div className="flex bg-slate-950 border-b border-slate-800 overflow-x-auto">
+                <div className="flex bg-slate-950 border-b border-slate-800 overflow-x-auto relative z-20">
                     {[
                         { id: 'stack', icon: <Cpu size={16} />, label: 'SYSTEM_DIAGNOSTICS' },
                         { id: 'projects', icon: <Code size={16} />, label: 'PROJECT_LOGS' },
@@ -148,7 +244,7 @@ export const CyberTheme: React.FC = () => {
                 </div>
 
                 {/* Content Area */}
-                <div className="p-6 flex-1 overflow-y-auto scrollbar-hide bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-900 to-slate-950">
+                <div className="p-6 flex-1 overflow-y-auto scrollbar-hide bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-900 to-slate-950 relative z-10">
                     
                     {/* SYSTEM DIAGNOSTICS TAB */}
                     {activeTab === 'stack' && (
@@ -157,7 +253,7 @@ export const CyberTheme: React.FC = () => {
                                 <h3 className="text-xs text-slate-500 mb-4 uppercase tracking-widest flex items-center gap-2">
                                     <Activity size={12}/> SKILL_RADAR_ANALYSIS
                                 </h3>
-                                <div className="h-[300px] w-full bg-slate-900/50 rounded-lg p-4 border border-slate-800/50">
+                                <div className="h-[300px] w-full bg-slate-900/50 rounded-lg p-4 border border-slate-800/50 hover:border-cyan-500/30 transition-colors">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                                             <PolarGrid stroke="#334155" />
@@ -180,14 +276,14 @@ export const CyberTheme: React.FC = () => {
                                         </div>
                                         <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
                                             <div 
-                                                className="h-full bg-gradient-to-r from-cyan-900 to-cyan-500 transition-all duration-1000 ease-out" 
+                                                className="h-full bg-gradient-to-r from-cyan-900 to-cyan-500 transition-all duration-1000 ease-out group-hover:shadow-[0_0_10px_cyan]" 
                                                 style={{width: `${skill.level}%`}}
                                             ></div>
                                         </div>
                                     </div>
                                 ))}
                                 
-                                <div className="mt-8 bg-slate-950/80 border-l-2 border-cyan-500 pl-4 py-3 pr-4 rounded-r bg-gradient-to-r from-slate-900/50 to-transparent">
+                                <div className="mt-4 bg-slate-950/80 border-l-2 border-cyan-500 pl-4 py-3 pr-4 rounded-r bg-gradient-to-r from-slate-900/50 to-transparent">
                                     <h4 className="text-cyan-400 text-xs font-bold mb-3 flex items-center gap-2">
                                         <Activity size={14} /> // SYSTEM_PROFILE
                                     </h4>
@@ -226,7 +322,7 @@ export const CyberTheme: React.FC = () => {
                                     </div>
                                     <div className="grid gap-4">
                                         {career.projects.map((p, idx) => (
-                                            <div key={idx} className="bg-slate-950/50 p-4 rounded border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900 transition-all cursor-default group">
+                                            <div key={idx} className="bg-slate-950/50 p-4 rounded border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900 transition-all cursor-none group">
                                                 <div className="flex justify-between items-start mb-2">
                                                     <h4 className="font-bold text-cyan-200 group-hover:text-cyan-400 transition-colors">{p.title}</h4>
                                                     <span className="px-2 py-0.5 bg-slate-800 rounded text-[10px] text-slate-400 group-hover:text-white transition-colors">{p.role}</span>
@@ -264,7 +360,7 @@ export const CyberTheme: React.FC = () => {
                                     <div className="col-span-7">Mission_Detail</div>
                                 </div>
                                 {CLOUDWORKS_LOGS.map((log) => (
-                                    <div key={log.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-0 p-4 bg-slate-900/40 border border-slate-800/50 rounded hover:border-green-500/30 hover:bg-slate-900 transition-all items-center group">
+                                    <div key={log.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-0 p-4 bg-slate-900/40 border border-slate-800/50 rounded hover:border-green-500/30 hover:bg-slate-900 transition-all items-center group clickable">
                                         <div className="col-span-2 text-xs font-mono text-cyan-700 group-hover:text-cyan-500 transition-colors">
                                             {log.date}
                                         </div>
@@ -295,7 +391,7 @@ export const CyberTheme: React.FC = () => {
             </div>
             
             {/* Contact / Transmission Section */}
-            <div className="bg-slate-900/80 border border-green-500/30 rounded-xl p-5 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group hover:border-green-400/50 transition-colors">
+            <div className="bg-slate-900/80 border border-green-500/30 rounded-xl p-5 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group hover:border-green-400/50 transition-colors clickable">
                 <div className="absolute top-0 right-0 p-4 opacity-5">
                     <Radio size={100} className="text-green-500" />
                 </div>
@@ -321,7 +417,7 @@ export const CyberTheme: React.FC = () => {
                         href="https://crowdworks.jp/public/employees/5739345?ref=share_url_wkprofile"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block px-6 py-2 bg-green-950 text-green-400 border border-green-600/50 text-xs font-bold tracking-wider hover:bg-green-900 hover:text-white hover:border-green-400 transition-all rounded uppercase shadow-[0_0_10px_rgba(34,197,94,0.1)]"
+                        className="inline-block px-6 py-2 bg-green-950 text-green-400 border border-green-600/50 text-xs font-bold tracking-wider hover:bg-green-900 hover:text-white hover:border-green-400 transition-all rounded uppercase shadow-[0_0_10px_rgba(34,197,94,0.1)] clickable"
                      >
                         CONTACT_VIA_CLOUDWORKS &gt;&gt;
                      </a>
