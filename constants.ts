@@ -34,7 +34,7 @@ export const CERTIFICATIONS: Certification[] = [
 export const CAREER_HISTORY: CareerItem[] = [
   {
     id: "career-0",
-    company: "某東証プライム上場 メーカー",
+    company: "某建設会社（東証プライム上場）",
     period: "2025/11 - 現在",
     role: "社内SE / PL",
     description: "情報システム部門にて、基幹システム統合やクラウド環境構築、Web制作など多岐にわたるプロジェクトをリード。",
@@ -56,7 +56,7 @@ export const CAREER_HISTORY: CareerItem[] = [
         achievements: []
       },
       {
-        title: "サービス紹介LP制作",
+        title: "製品紹介LP制作",
         role: "Developer",
         size: "小規模",
         stack: ["HTML/CSS", "JavaScript"],
@@ -64,10 +64,10 @@ export const CAREER_HISTORY: CareerItem[] = [
         achievements: []
       },
       {
-        title: "AI積算システム クラウド構築",
+        title: "AI積算システム クラウド環境構築",
         role: "Infra Engineer",
         size: "中規模",
-        stack: ["AWS", "Terraform", "AI"],
+        stack: ["AWS", "Terraform"],
         summary: "AI積算システムの稼働環境となるクラウドインフラの設計・構築。",
         achievements: []
       }
@@ -108,7 +108,7 @@ export const CAREER_HISTORY: CareerItem[] = [
   },
   {
     id: "career-2",
-    company: "某東証スタンダード上場 建材メーカー",
+    company: "某建材メーカー（東証スタンダード上場）",
     period: "2018/06 - 2025/01",
     role: "社内SE / 経営企画室 主任",
     description: "情報システム部門にて、基幹システムの刷新や社内業務のDX化をリード。",

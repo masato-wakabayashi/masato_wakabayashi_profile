@@ -44,7 +44,7 @@ export const CorporateTheme: React.FC = () => {
               </div>
             </div>
             <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden shadow-2xl bg-slate-200 flex-shrink-0">
-               <img src="https://picsum.photos/400/400?grayscale" alt="Profile" className="w-full h-full object-cover" />
+               <img src="../public/photo/profile-image.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

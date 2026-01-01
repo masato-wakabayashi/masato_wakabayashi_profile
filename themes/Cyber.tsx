@@ -82,7 +82,7 @@ export const CyberTheme: React.FC = () => {
   const CLOUDWORKS_LOGS = [
     {
       id: 'cw-01',
-      date: '2025-02-15',
+      date: '2025-10',
       category: 'Kintone Dev',
       title: 'kintone-出荷アプリ開発',
       client: '物流・製造業様',
@@ -91,7 +91,7 @@ export const CyberTheme: React.FC = () => {
     },
     {
       id: 'cw-02',
-      date: '2025-01-20',
+      date: '2025-08',
       category: 'Excel Design',
       title: 'JIS審査書類のExcelフォーマット作成',
       client: '製造業様',
@@ -144,7 +144,7 @@ export const CyberTheme: React.FC = () => {
             <div className="bg-slate-900/80 backdrop-blur border border-cyan-500/30 p-6 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.1)] group hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] transition-all">
                 <div className="w-32 h-32 mx-auto rounded-full border-2 border-cyan-400 p-1 mb-4 relative">
                     <div className="absolute inset-0 rounded-full border border-cyan-400 animate-ping opacity-20"></div>
-                    <img src="https://picsum.photos/400/400?grayscale" alt="Avatar" className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                    <img src="../public/photo/profile-image.png" alt="Avatar" className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                 </div>
                 <h1 className="text-2xl font-bold text-white text-center tracking-tighter">{PROFILE.englishName}</h1>
                 
@@ -188,7 +188,7 @@ export const CyberTheme: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">EXP. YEARS</div>
-                    <div className="text-2xl font-bold text-white">10<span className="text-cyan-500 text-sm">.0</span></div>
+                    <div className="text-2xl font-bold text-white">7<span className="text-cyan-500 text-sm">.0</span></div>
                 </div>
                 <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">PROJECTS</div>
@@ -196,7 +196,7 @@ export const CyberTheme: React.FC = () => {
                 </div>
                 <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">MAX TEAM</div>
-                    <div className="text-2xl font-bold text-white">10<span className="text-cyan-500 text-sm">ppl</span></div>
+                    <div className="text-2xl font-bold text-white">5<span className="text-cyan-500 text-sm">ppl</span></div>
                 </div>
                 <div className="bg-slate-900/50 border border-cyan-900/50 p-4 rounded-lg hover:bg-slate-900 transition-colors">
                     <div className="text-slate-500 text-xs uppercase">STATUS</div>
@@ -290,15 +290,15 @@ export const CyberTheme: React.FC = () => {
                                     <div className="space-y-3 text-xs font-mono">
                                         <div className="flex flex-col gap-1">
                                             <span className="text-slate-500 text-[10px] uppercase tracking-wider">Class</span>
-                                            <span className="text-cyan-100">ハイブリッドエンジニア (Business + Tech)</span>
+                                            <span className="text-cyan-100">システムエンジニア</span>
                                         </div>
                                         <div className="flex flex-col gap-1">
                                             <span className="text-slate-500 text-[10px] uppercase tracking-wider">Specialty</span>
-                                            <span className="text-cyan-100">レガシーシステム刷新 / DX推進</span>
+                                            <span className="text-cyan-100">業務自動化 / 小規模ツール開発 / webシステム開発</span>
                                         </div>
                                         <div className="pt-2 border-t border-slate-800/50">
                                              <p className="text-slate-400 leading-relaxed italic">
-                                                "複雑な業務要件を堅牢なクラウドアーキテクチャへと変換。非技術部門とエンジニアリングチームの架け橋として機能します。"
+                                                "日々の「面倒な作業」をExcelや簡易ツールで解消するのが得意です。専門用語を使わず、相談しながら形にしていく進め方を大切にしています。"
                                             </p>
                                         </div>
                                     </div>
